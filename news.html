@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中美欧AI发展成熟度对比研究</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #FFFFFF;
+        }
+        .card {
+            background-color: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 1.25rem; /* 20px */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+            position: relative;
+        }
+        .highlight-gradient-blue {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0), rgba(59, 130, 246, 0.05));
+        }
+        .highlight-gradient-purple {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0), rgba(139, 92, 246, 0.05));
+        }
+        .highlight-gradient-green {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0), rgba(16, 185, 129, 0.05));
+        }
+        .highlight-gradient-orange {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0), rgba(249, 115, 22, 0.05));
+        }
+        .highlight-gradient-red {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0), rgba(239, 68, 68, 0.05));
+        }
+        .highlight-gradient-cyan {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0), rgba(6, 182, 212, 0.05));
+        }
+        .highlight-gradient-pink {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0), rgba(236, 72, 153, 0.05));
+        }
+        .highlight-gradient-indigo {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0), rgba(99, 102, 241, 0.05));
+        }
+        .highlight-gradient-teal {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0), rgba(20, 184, 166, 0.05));
+        }
+        .highlight-gradient-gray {
+            background: linear-gradient(135deg, rgba(107, 114, 128, 0), rgba(107, 114, 128, 0.05));
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <div class="max-w-7xl mx-auto p-4 md:p-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
+            <!-- 标题卡片 -->
+            <div class="card md:col-span-4 p-8 flex flex-col justify-center items-center text-center relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-blue"></div>
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">中美欧AI发展成熟度对比研究</h1>
+                <p class="text-xl text-gray-600 mb-6">技术能力、产业生态与政策环境的三维分析</p>
+                <div class="flex space-x-8 text-center">
+                    <div class="flex flex-col items-center">
+                        <div class="text-3xl font-bold text-blue-500 mb-1">6</div>
+                        <div class="text-sm text-gray-500">核心应用领域</div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-3xl font-bold text-purple-500 mb-1">3</div>
+                        <div class="text-sm text-gray-500">关键维度</div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-3xl font-bold text-green-500 mb-1">3</div>
+                        <div class="text-sm text-gray-500">主要经济体</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 雷达图卡片 -->
+            <div class="card md:col-span-4 p-6 relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-purple"></div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">六大应用领域成熟度雷达图</h2>
+                <div class="w-full h-96">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 中国优势卡片 -->
+            <div class="card md:col-span-2 p-6 flex flex-col justify-center relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-red"></div>
+                <div class="flex items-center mb-4">
+                    <i class="fa-solid fa-industry text-3xl text-red-500 mr-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-800">中国：工业AI领域绝对优势</h3>
+                </div>
+                <p class="text-lg text-gray-600 mb-4">中国在工业AI领域成熟度达9分，宁德时代接入阿里云工业大脑AI质检系统后，检测电池极片缺陷准确率达99.9%。</p>
+                <div class="flex items-center text-sm text-gray-500">
+                    <i class="fa-solid fa-arrow-right mr-2"></i>
+                    <span>庞大制造业基础 + 政策推动</span>
+                </div>
+            </div>
+
+            <!-- 美国优势卡片 -->
+            <div class="card md:col-span-2 p-6 flex flex-col justify-center relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-blue"></div>
+                <div class="flex items-center mb-4">
+                    <i class="fa-solid fa-microchip text-3xl text-blue-500 mr-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-800">美国：三大领域领跑全球</h3>
+                </div>
+                <p class="text-lg text-gray-600 mb-4">美国在医疗健康、消费端应用、自动驾驶三个领域均达到9分最高成熟度。DeepMind的AlphaFold3将癌症药物研发周期从5年缩短至18个月。</p>
+                <div class="flex items-center text-sm text-gray-500">
+                    <i class="fa-solid fa-arrow-right mr-2"></i>
+                    <span>高端技术应用 + 创新生态</span>
+                </div>
+            </div>
+
+            <!-- 欧盟优势卡片 -->
+            <div class="card md:col-span-2 p-6 flex flex-col justify-center relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-green"></div>
+                <div class="flex items-center mb-4">
+                    <i class="fa-solid fa-leaf text-3xl text-green-500 mr-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-800">欧盟：绿色AI独树一帜</h3>
+                </div>
+                <p class="text-lg text-gray-600 mb-4">欧盟在绿色AI领域成熟度达9分，通过AI优化数据中心冷却系统降低30%能源消耗，将伦理与可持续性融入AI发展核心。</p>
+                <div class="flex items-center text-sm text-gray-500">
+                    <i class="fa-solid fa-arrow-right mr-2"></i>
+                    <span>价值观引领 + 可持续发展</span>
+                </div>
+            </div>
+
+            <!-- 中美欧专利对比卡片 -->
+            <div class="card md:col-span-2 p-6 relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-orange"></div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">2024年全球AI专利分布</h3>
+                <div class="w-full h-64">
+                    <canvas id="patentChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 算力对比卡片 -->
+            <div class="card md:col-span-4 p-6 relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-cyan"></div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">全球AI算力分布（GPU集群性能占比）</h3>
+                <div class="w-full h-64">
+                    <canvas id="computingChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 独角兽企业对比卡片 -->
+            <div class="card md:col-span-4 p-6 relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-pink"></div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">中美欧AI独角兽企业数量对比</h3>
+                <div class="w-full h-64">
+                    <canvas id="unicornChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 投资对比卡片 -->
+            <div class="card md:col-span-4 p-6 relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-indigo"></div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">2024年全球AI投资规模对比（亿美元）</h3>
+                <div class="w-full h-64">
+                    <canvas id="investmentChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 人才对比卡片 -->
+            <div class="card md:col-span-2 p-6 relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-teal"></div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">全球AI研究人员数量（万人）</h3>
+                <div class="w-full h-64">
+                    <canvas id="talentChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 技术差距卡片 -->
+            <div class="card md:col-span-2 p-6 flex flex-col justify-center relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-gray"></div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">中美AI技术差距变化趋势</h3>
+                <div class="w-full h-64">
+                    <canvas id="gapChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 政策环境对比卡片 -->
+            <div class="card md:col-span-4 p-6 relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-blue"></div>
+                <h3 class="text-xl font-bold text-gray-800 mb-6">中美欧AI政策环境对比</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                        <div class="flex items-center mb-3">
+                            <i class="fa-solid fa-flag-usa text-2xl text-blue-600 mr-3"></i>
+                            <h4 class="font-bold text-gray-800">美国</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">从监管到创新的政策转向</p>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li>• 《赢得竞赛：美国AI行动计划》</li>
+                            <li>• 建立监管沙盒，推动"先试后管"</li>
+                            <li>• 支持全栈AI技术出口</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-100">
+                        <div class="flex items-center mb-3">
+                            <i class="fa-solid fa-flag text-2xl text-green-600 mr-3"></i>
+                            <h4 class="font-bold text-gray-800">欧盟</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">全球最严格的AI监管框架</p>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li>• 《人工智能法案》全面生效</li>
+                            <li>• 风险分级管理体系</li>
+                            <li>• 最高3500万欧元或年收入7%罚款</li>
+                        </ul>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                        <div class="flex items-center mb-3">
+                            <i class="fa-solid fa-flag text-2xl text-red-600 mr-3"></i>
+                            <h4 class="font-bold text-gray-800">中国</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">规划引领、产业推动</p>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li>• "十四五"规划AI列为战略性新兴产业</li>
+                            <li>• 设立600亿元国家支持基金</li>
+                            <li>• 《生成式AI服务管理暂行办法》</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 结论卡片 -->
+            <div class="card md:col-span-4 p-8 flex flex-col justify-center relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-purple"></div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">研究结论</h2>
+                <div class="space-y-4 text-gray-700">
+                    <p class="text-lg">中美欧AI发展呈现出明显的差异化特征：</p>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li><span class="font-bold text-red-600">中国</span>：在工业AI领域具有绝对优势（9分），依托庞大制造业基础和政策推动</li>
+                        <li><span class="font-bold text-blue-600">美国</span>：在医疗健康、消费端应用、自动驾驶等高端应用领域领先（均为9分）</li>
+                        <li><span class="font-bold text-green-600">欧盟</span>：在绿色AI领域独树一帜（9分），将伦理与可持续性融入AI发展核心</li>
+                    </ul>
+                    <p class="text-lg">中美AI技术差距已从一年多缩短至约三个月，预计到2030年将呈现"并跑"态势。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // 雷达图
+    const radarCtx = document.getElementById('radarChart').getContext('2d');
+    new Chart(radarCtx, {
+        type: 'radar',
+        data: {
+            labels: ['工业', '医疗健康', '消费端应用', '自动驾驶', '企业级服务', '绿色AI'],
+            datasets: [
+                {
+                    label: '中国',
+                    data: [9, 6, 5, 7, 7, 6],
+                    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                    borderColor: 'rgba(239, 68, 68, 1)',
+                    pointBackgroundColor: 'rgba(239, 68, 68, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(239, 68, 68, 1)'
+                },
+                {
+                    label: '美国',
+                    data: [7, 9, 9, 9, 8, 5],
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(59, 130, 246, 1)'
+                },
+                {
+                    label: '欧盟',
+                    data: [8, 8, 4, 6, 5, 9],
+                    backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                    borderColor: 'rgba(16, 185, 129, 1)',
+                    pointBackgroundColor: 'rgba(16, 185, 129, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(16, 185, 129, 1)'
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: {
+                        display: true
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 10
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+
+    // 专利分布饼图
+    const patentCtx = document.getElementById('patentChart').getContext('2d');
+    new Chart(patentCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['中国', '美国', '其他'],
+            datasets: [{
+                data: [69.7, 14.2, 16.1],
+                backgroundColor: [
+                    'rgba(249, 115, 22, 0.8)',
+                    'rgba(59, 130, 246, 0.8)',
+                    'rgba(107, 114, 128, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(249, 115, 22, 1)',
+                    'rgba(59, 130, 246, 1)',
+                    'rgba(107, 114, 128, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+
+    // 算力分布条形图
+    const computingCtx = document.getElementById('computingChart').getContext('2d');
+    new Chart(computingCtx, {
+        type: 'bar',
+        data: {
+            labels: ['美国', '中国', '欧盟', '其他'],
+            datasets: [{
+                label: 'GPU集群性能占比 (%)',
+                data: [75, 15, 4.8, 5.2],
+                backgroundColor: [
+                    'rgba(6, 182, 212, 0.8)',
+                    'rgba(239, 68, 68, 0.8)',
+                    'rgba(16, 185, 129, 0.8)',
+                    'rgba(107, 114, 128, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(6, 182, 212, 1)',
+                    'rgba(239, 68, 68, 1)',
+                    'rgba(16, 185, 129, 1)',
+                    'rgba(107, 114, 128, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 80
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // 独角兽企业条形图
+    const unicornCtx = document.getElementById('unicornChart').getContext('2d');
+    new Chart(unicornCtx, {
+        type: 'bar',
+        data: {
+            labels: ['美国', '中国', '欧盟'],
+            datasets: [{
+                label: 'AI独角兽企业数量',
+                data: [271, 71, 30],
+                backgroundColor: [
+                    'rgba(236, 72, 153, 0.8)',
+                    'rgba(239, 68, 68, 0.8)',
+                    'rgba(16, 185, 129, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(236, 72, 153, 1)',
+                    'rgba(239, 68, 68, 1)',
+                    'rgba(16, 185, 129, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // 投资规模条形图
+    const investmentCtx = document.getElementById('investmentChart').getContext('2d');
+    new Chart(investmentCtx, {
+        type: 'bar',
+        data: {
+            labels: ['美国', '中国', '欧盟', '英国'],
+            datasets: [{
+                label: '2024年AI投资规模 (亿美元)',
+                data: [1090, 93, 30, 45],
+                backgroundColor: [
+                    'rgba(99, 102, 241, 0.8)',
+                    'rgba(239, 68, 68, 0.8)',
+                    'rgba(16, 185, 129, 0.8)',
+                    'rgba(107, 114, 128, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(99, 102, 241, 1)',
+                    'rgba(239, 68, 68, 1)',
+                    'rgba(16, 185, 129, 1)',
+                    'rgba(107, 114, 128, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // 人才数量条形图
+    const talentCtx = document.getElementById('talentChart').getContext('2d');
+    new Chart(talentCtx, {
+        type: 'bar',
+        data: {
+            labels: ['中国', '美国', '欧盟'],
+            datasets: [{
+                label: 'AI研究人员数量 (万人)',
+                data: [5.2, 6.3, 2.1],
+                backgroundColor: [
+                    'rgba(239, 68, 68, 0.8)',
+                    'rgba(59, 130, 246, 0.8)',
+                    'rgba(16, 185, 129, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(239, 68, 68, 1)',
+                    'rgba(59, 130, 246, 1)',
+                    'rgba(16, 185, 129, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // 技术差距折线图
+    const gapCtx = document.getElementById('gapChart').getContext('2d');
+    new Chart(gapCtx, {
+        type: 'line',
+        data: {
+            labels: ['2024年1月', '2024年4月', '2024年7月', '2024年10月', '2025年1月'],
+            datasets: [{
+                label: '中美AI技术差距 (%)',
+                data: [9.26, 7.1, 5.3, 3.2, 1.7],
+                backgroundColor: 'rgba(107, 114, 128, 0.2)',
+                borderColor: 'rgba(107, 114, 128, 1)',
+                borderWidth: 2,
+                tension: 0.3,
+                fill: true
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 10
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+</script>
+</html>
